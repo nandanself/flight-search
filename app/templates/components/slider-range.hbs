@@ -1,0 +1,8 @@
+<p>Price Range: 0 - {{sliderValue}}</p>  
+<input type="range" 
+  oninput={{action 'sliderMoved'}} 
+  min="0"
+  max="5000"
+  value={{sliderValue}}
+  steps="100">
+{{yield}}

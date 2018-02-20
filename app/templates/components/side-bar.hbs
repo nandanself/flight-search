@@ -1,0 +1,44 @@
+
+<div class="tabs">
+  <div class="tab">
+    <div class="tab-box">
+        <p>One Way</p>
+    </div>
+  </div>
+  <div class="tab">
+    <div class="tab-box">
+        <p>Return</p>
+    </div>
+ </div>
+</div>
+<form>
+    {{input placeholder="Enter Origin City" value=originCity}}
+    {{input placeholder="Enter Destination City" value=destinationCity}}
+
+    {{pikaday-input format="MMMM D, YYYY" 
+    placeholder="Departure Date" 
+    yearRange="1" 
+    maxDate=maxDate 
+    minDate=minDate 
+    defaultDate=minDate 
+    value=depatureDate
+    onSelection=(action 'depatureDateSelected')}}
+
+    {{#if isReturnDateTabSelected}}
+        {{pikaday-input format="MMMM D, YYYY" 
+        placeholder="Return Date" 
+        yearRange="1"
+        maxDate=maxDate 
+        minDate=minDate 
+        defaultDate=minDate 
+        value=returnDate
+        onSelection=(action 'returnDateSelected')}}
+    {{/if}}
+
+    {{quantity-bar value=1 limitValue=9 title="Passengers" onChange="passengerCountChange" }}
+
+    <button {{action "seacrhFlight"}}>Search</button>
+</form>
+
+{{slider-range maxValue=5000 sliderValue=5000}}
+{{yield}}
