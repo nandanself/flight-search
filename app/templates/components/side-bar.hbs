@@ -1,12 +1,12 @@
 
 <div class="tabs">
   <div class="tab">
-    <div class="tab-box">
+    <div id="depature-date" class="tab-box active" {{action "oneWaySearchSelected"}}>
         <p>One Way</p>
     </div>
   </div>
   <div class="tab">
-    <div class="tab-box">
+    <div id="return-date" class="tab-box" {{action "returnSearchSelected"}}>
         <p>Return</p>
     </div>
  </div>
@@ -20,7 +20,6 @@
     yearRange="1" 
     maxDate=maxDate 
     minDate=minDate 
-    defaultDate=minDate 
     value=depatureDate
     onSelection=(action 'depatureDateSelected')}}
 
@@ -30,7 +29,6 @@
         yearRange="1"
         maxDate=maxDate 
         minDate=minDate 
-        defaultDate=minDate 
         value=returnDate
         onSelection=(action 'returnDateSelected')}}
     {{/if}}
@@ -40,5 +38,5 @@
     <button {{action "seacrhFlight"}}>Search</button>
 </form>
 
-{{slider-range maxValue=5000 sliderValue=5000}}
+{{slider-range maxValue=highestPrice sliderValue=highestPrice onChange="priceValueChange"}}
 {{yield}}

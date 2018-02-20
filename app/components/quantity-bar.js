@@ -8,8 +8,8 @@ export default Ember.Component.extend({
     actions:{
         decrementValue(){
             let value = this.get('value');
-            if (value === 0){
-                this.set('error',"This attribute can't be less than zero");
+            if (value === 1){
+                this.set('error',"Passenger can't be less than 1");
                 this.set('isError',true);
             }else{
                 this.decrementProperty('value');
@@ -24,7 +24,7 @@ export default Ember.Component.extend({
             let limit = this.get('limitValue');
             let value =  this.get('value');
             if (value === limit){
-                this.set('error',`This attribute can't be more than ${limit}`);
+                this.set('error',`Current booking can only be made upto ${limit} travellers.`);
                 this.set('isError',true);
             }else{
                 this.incrementProperty('value');

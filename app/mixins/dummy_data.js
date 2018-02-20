@@ -12,7 +12,7 @@ export default Ember.Mixin.create({
                 start_time:'10:00 AM',
                 arrival_airport:'Bangalore',
                 arrival_time:'11:30 AM',
-                price:5000,
+                price:2000,
                 flight_code:'Al-201',
                 seat_left:1,
                 company:'Air Asia',

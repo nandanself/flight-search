@@ -1,16 +1,18 @@
 {{nav-bar}}
 <div class="main-container">
-    {{side-bar}}
+    {{side-bar searhComplete='searchComplete'}}
     <div class="flight-grid">
 
         {{#if isWelcomeMessage}}
             <div class="message-card">
-                <p>Welcome to ThoughtWorks Flight Search</p>
+                {{!-- <p>Welcome to ThoughtWorks Flight Search</p> --}}
                 <p>Happy Searching :)</p>
             </div>
         {{else}}
             {{#if isResultFound}}
-                {{flight-card}}
+                {{#each searchResult}}
+                    {{flight-card}}
+                {{/each}}     
             {{else}}
                 <div class="message-card">
                     <p>Sorry no Flight present for you Search :(</p>

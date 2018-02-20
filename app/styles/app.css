@@ -206,37 +206,40 @@ nav p{
     height:45px;
     padding: 0 0 0 0;
     overflow:visible;
-  }
-  .tab {
+}
+
+.tab {
     width:140px;
     height:45px;
     overflow:hidden;
     float:left;
     margin:0 -15px 0 0;
-  }
+    cursor: pointer;
+}
 
-  .tab-box {
+.tab p{
+    color:black;
+    margin-top:15px;
+    font-size:18px;
+} 
+
+.tab-box {
     height:50px;
     background: #fff;
     border-radius: 4px;
     border:1px solid #ccc;
     margin:0 10px 0;
     box-shadow: 0 0 2px  #fff inset;
-   -webkit-transform: perspective(100px) rotateX(30deg);
-   -moz-transform: perspective(100px) rotateX(30deg);
-  }
-  
-  .tab.active {
+    -webkit-transform: perspective(100px) rotateX(30deg);
+    -moz-transform: perspective(100px) rotateX(30deg);
+}
+
+.active {
     z-index:40;
     position:relative;
     padding-bottom:1px;
-  }
-
-  .tab.active .tab-box{
-    background-color: #eee;
-    @include background-image(linear-gradient(top, #ccc , #ddd 3%, rgba(#eee, 0.5)  ));
-    box-shadow: 0 0 2px 0 #fff inset;
-  }
+    background-color:#eee;
+}
 
 .flight-grid{
     flex-grow:1;

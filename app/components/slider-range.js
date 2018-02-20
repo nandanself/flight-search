@@ -4,9 +4,15 @@ export default Ember.Component.extend({
 
     classNames:['slider-range'],
 
+    didReceiveAttrs(){
+        this.set('value',this.get('sliderValue'));
+    },
+    
+
     actions:{
         sliderMoved(event) {
-            this.set('sliderValue',event.target.value);
+            this.set('value',event.target.value);
+            this.sendAction('onChange',event.target.value);
         }
     }
 });
