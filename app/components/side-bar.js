@@ -5,11 +5,14 @@ import GeneralFunction from 'flight-search/mixins/general-function';
 export default Ember.Component.extend(DummyData,GeneralFunction,{
     classNames:['side-menu'],
 
+    isError:false,
+    error:null,
+
     originCity:null,
     destinationCity:null,
     depatureDate:null,
     returnDate:null,
-    numPassenger:0,
+    numPassenger:1,
 
     searchResult:null,
 
@@ -36,7 +39,7 @@ export default Ember.Component.extend(DummyData,GeneralFunction,{
             }    
                return true;
           }).filter((item) => {
-              if (item['seat_left'] <= numSeats){
+              if (item['seat_left'] < numSeats){
                 return false;
               }
               return true;
@@ -54,7 +57,6 @@ export default Ember.Component.extend(DummyData,GeneralFunction,{
 
     actions:{
         depatureDateSelected(value){
-            console.log(value);
             this.set('depatureDate',value);
         },
 
@@ -63,10 +65,10 @@ export default Ember.Component.extend(DummyData,GeneralFunction,{
         },  
 
         oneWaySearchSelected(){
-            console.log(Ember.$(this));
             Ember.$('.tab-box').removeClass('active');
             Ember.$('#depature-date').addClass('active');
             this.set('isReturnDateTabSelected',false);
+            this.sendAction('onSelect',this.get('isReturnDateTabSelected'));
         },
 
         returnSearchSelected(){
@@ -74,6 +76,7 @@ export default Ember.Component.extend(DummyData,GeneralFunction,{
             Ember.$('#return-date').addClass('active');
             this.set('returnDate',null);
             this.set('isReturnDateTabSelected',true); 
+            this.sendAction('onSelect',this.get('isReturnDateTabSelected'));
         },  
 
         passengerCountChange(numPassenger){
@@ -81,27 +84,54 @@ export default Ember.Component.extend(DummyData,GeneralFunction,{
         },
 
         priceValueChange(price){
+            let returnFlightResult = null;
             let searchResult = this.get('searchResult');
+            let returnSearchFlightResult = this.get('returnFlightResult');
             this.set('price',price);
-            let result = this.filterOnPrice(searchResult,price);
-            console.log(result);
-            this.sendAction('searhComplete',result);
+            let result = this.filterOnPrice(searchResult, price);
+            if (this.get('isReturnDateTabSelected')){
+                returnFlightResult = this.filterOnPrice(returnSearchFlightResult, price);
+            }
+            this.sendAction('searhComplete', result, returnFlightResult);
         },
 
         seacrhFlight(){
+            let returnFlightResult = null;
             let data =  this.returnDummyData();
-            console.log(data);
             let { originCity, destinationCity, numPassenger, depatureDate } = this.getProperties('originCity','destinationCity','numPassenger','depatureDate');
-            let filterParams = {
-                'origin_airport':originCity,
-                'arrival_airport':destinationCity,
-                'jounrey_date':this.convertingDateToSearchFormat(depatureDate),
-            };
-            let result = this.filter(data,filterParams,numPassenger);
-            let highestPrice = result.reduce((prev, curr) => {return prev.price > curr.price ? prev : curr })['price'];
-            this.set('highestPrice',highestPrice);
-            this.set('searchResult',result);
-            this.sendAction('searhComplete',result);
+            console.log(originCity,destinationCity,numPassenger,depatureDate);
+            if (originCity && destinationCity && numPassenger && depatureDate){
+                this.set('isError',false);
+                this.set('error',null);
+                let filterParams = {
+                    'origin_airport':originCity.toLowerCase(),
+                    'arrival_airport':destinationCity.toLowerCase(),
+                    'jounrey_date':this.convertingDateToSearchFormat(depatureDate),
+                };         
+                let result = this.filter(data,filterParams,numPassenger);
+    
+                if (result.length > 0 ){
+                    let highestPrice = result.reduce((prev, curr) => {return prev.price > curr.price ? prev : curr })['price'];
+                    this.set('highestPrice',highestPrice);
+                }
+            
+                if (this.get('isReturnDateTabSelected')){
+                    let { returnDate } = this.getProperties('returnDate');
+                    let filterParamsReturn = {
+                        'origin_airport':destinationCity.toLowerCase(),
+                        'arrival_airport':originCity.toLowerCase(),
+                        'jounrey_date':this.convertingDateToSearchFormat(returnDate),
+                    };
+                    returnFlightResult = this.filter(data, filterParamsReturn, numPassenger);
+                    this.set('returnFlightResult',returnFlightResult);
+                }
+                this.set('searchResult',result);
+                this.sendAction('searhComplete', result, returnFlightResult);
+            }else{
+                this.set('error',"Fields can't be blank");
+                this.set('isError',true);
+            }   
+            
         },
 
     }

@@ -33,8 +33,10 @@
         onSelection=(action 'returnDateSelected')}}
     {{/if}}
 
-    {{quantity-bar value=1 limitValue=9 title="Passengers" onChange="passengerCountChange" }}
-
+    {{quantity-bar value=numPassenger limitValue=9 title="Passengers" onChange="passengerCountChange" }}
+    {{#if isError}}
+        <p class="error">{{error}}</p>
+    {{/if}}
     <button {{action "seacrhFlight"}}>Search</button>
 </form>
 

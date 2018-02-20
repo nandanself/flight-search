@@ -1,5 +1,8 @@
-<div class="flight-card">
-
-</div>
+<header>Rs.{{flight.price}}</header>
+<p class="flight-code">{{flight.flight_code}}</p>
+<p class="travel-airpots">{{flight.origin_airport}} > {{flight.arrival_airport}}</p>
+<p class="time">Depart: {{flight.start_time}}</p>
+<p class="time"> Arrive:{{flight.arrival_time}}</p>
+<button class="buttonSelect" {{action "flightSelected" flight}}></button>
 
 {{yield}}

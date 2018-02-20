@@ -172,6 +172,19 @@ nav p{
 	margin-left: 20px;
 }
 
+.error{
+    font-family: OpenSans;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: 1px;
+    color: red;
+    margin:0px;  
+    font-size:16px;
+    margin-top:10px;
+    text-align:left;
+}
+
 .main-container {
     width:100%;
     height: auto;
@@ -244,6 +257,42 @@ nav p{
 .flight-grid{
     flex-grow:1;
     padding-left:10px;
+    display: flex;
+    position: relative;
+}
+
+.flight-grid .book-ticket{
+    width:calc(100% - 330px);
+    height:60px;
+    border:1px solid black;
+    margin-bottom: 10px;
+    padding:0px;
+    background:black;
+    position: fixed;
+    display: flex;
+    margin-top:-10px;
+}
+
+.flight-grid .book-ticket button{
+    margin-left:10px;
+    color:white;
+    border:1px solid white;
+}
+
+.flight-grid .book-ticket p{
+    font-family: OpenSans;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: 1px;
+    color:white;
+    margin:14px; 
+    font-size:24px; 
+}
+
+.flight-grid .col{
+    width:100%;
+    margin-top:62px;
 }
 
 .message-card {
@@ -286,14 +335,67 @@ nav p{
 
 .flight-card{
     width: 100%;
-    height: 300px;
+    height:auto;
     border:1px solid black;
     margin-bottom: 10px;
-    padding: 20px;
+    padding: 10px;
     background: white;
+    display:inline-block;
+    text-align: left;
 }
 
+.flight-card header{
+    font-family: OpenSans;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: 1px;
+    color:black;
+    margin:0px; 
+    font-size:24px;
+    text-align:left;
+    display: block;
+    margin-bottom:15px;
+}
 
+.flight-card p {
+    font-family: OpenSans;
+    font-weight: normal;
+    font-style: bold;
+    font-stretch: normal;
+    letter-spacing: 1px;
+    color:black;
+    margin:0px; 
+    font-size:24px;
+    text-align:left;
+    margin-bottom:10px;
+}
+
+.flight-card .flight-code{
+    font-size:16px
+}
+
+.flight-card .travel-airpots{
+    font-size:18px;
+}
+
+.flight-card .time{
+    font-size:20px;
+}
+
+.flight-card button{
+    width: 28px;
+    height: 28px;
+    margin-top: 0px;
+    outline: 0;
+    border-radius: 100%;
+    border: 1px solid black;
+    background-color: transparent;
+}
+
+.flight-card .buttonSelected {
+    background-color: green;
+}
 
 .quantity-box {
     display: block;
@@ -312,18 +414,7 @@ nav p{
     font-size: 24px;
 }
 
-.quantity-box .error{
-    font-family: OpenSans;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    letter-spacing: 1px;
-    color: red;
-    display: inline-block;
-    margin:0px;  
-    font-size:16px;
-    margin-top:10px;
-}
+
 
 .quantity-bar{
     align-items: left;
@@ -359,3 +450,5 @@ nav p{
     font-size: 24px;
     cursor: pointer;
  }
+
+

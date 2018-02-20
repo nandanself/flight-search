@@ -1,18 +1,43 @@
 {{nav-bar}}
 <div class="main-container">
-    {{side-bar searhComplete='searchComplete'}}
+    {{side-bar searhComplete='searchComplete' onSelect="flightBookingTypeSelect"}}
     <div class="flight-grid">
 
         {{#if isWelcomeMessage}}
             <div class="message-card">
-                {{!-- <p>Welcome to ThoughtWorks Flight Search</p> --}}
+                <p>Welcome to ThoughtWorks Flight Search</p>
                 <p>Happy Searching :)</p>
             </div>
         {{else}}
             {{#if isResultFound}}
-                {{#each searchResult}}
-                    {{flight-card}}
-                {{/each}}     
+                <div class="book-ticket">
+                    <button {{action "bookTicket"}} > Book Ticket </button>
+                    {{#if isTicketBooked}}
+                        {{#if isReturnDateTabSelected}}
+                            <p>Congrats your tickets got booked ( {{selectedFlight.flight_code}} ) and ( {{returnSelectedFlight.flight_code}})</p>
+                        {{else}}
+                            <p>Congrats your ticket got booked ( {{selectedFlight.flight_code}} )</p>
+                        {{/if}}
+                    {{/if}}    
+                </div>
+                <div class="col left">
+                    <div class="message-card">
+                        <p>Pune > Bangalore</p>
+                    </div>
+                    {{#each searchResult as |flight|}}
+                        {{flight-card flight=flight onSelect="flightSelected" col="left"}}
+                    {{/each}}    
+                </div>
+                {{#if isReturnDateTabSelected}}
+                <div class="col right">
+                    <div class="message-card">
+                        <p>Bangalore > Pune</p>
+                    </div>
+                    {{#each returnFlightResult as |flight|}}
+                        {{flight-card flight=flight onSelect="returnflightSelected" col="right"}}
+                    {{/each}}    
+                </div>  
+                {{/if}}  
             {{else}}
                 <div class="message-card">
                     <p>Sorry no Flight present for you Search :(</p>
